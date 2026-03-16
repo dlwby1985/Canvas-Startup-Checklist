@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSY 503 课程入门导航</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --maroon: #8C1D40;
+    --maroon-dark: #6B1631;
+    --maroon-light: #A8325A;
+    --gold: #FFC627;
+    --gold-light: #FFD54F;
+    --gold-soft: #FFF8E1;
+    --bg: #FAFAFA;
+    --card-bg: #FFFFFF;
+    --text-primary: #1A1A2E;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --border: #E8E0E4;
+    --success: #2E7D32;
+    --success-bg: #E8F5E9;
+    --shadow-sm: 0 1px 3px rgba(140,29,64,0.06);
+    --shadow-md: 0 4px 12px rgba(140,29,64,0.08);
+    --shadow-lg: 0 8px 24px rgba(140,29,64,0.12);
+    --radius: 10px;
+    --transition: 0.25s ease;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+    color: #fff;
+    padding: 36px 24px 28px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -10%;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255,198,39,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,198,39,0.15);
+    border: 1px solid rgba(255,198,39,0.3);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .header p {
+    font-size: 14px;
+    opacity: 0.85;
+    font-weight: 300;
+    position: relative;
+  }
+
+  /* ── Progress Bar ── */
+  .progress-section {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .progress-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .progress-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .progress-count {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--maroon);
+  }
+  .progress-bar-track {
+    width: 100%;
+    height: 8px;
+    background: #F0E6EA;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--maroon) 0%, var(--maroon-light) 100%);
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0%;
+  }
+  .progress-bar-fill.complete {
+    background: linear-gradient(90deg, var(--success) 0%, #43A047 100%);
+  }
+
+  /* ── Main Content ── */
+  .main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+  }
+
+  .intro-note {
+    background: var(--gold-soft);
+    border-left: 4px solid var(--gold);
+    padding: 14px 18px;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    color: #5D4E37;
+    line-height: 1.8;
+  }
+  .intro-note strong {
+    color: var(--maroon);
+  }
+
+  .assignment-desc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+  }
+  .assignment-desc p {
+    margin-bottom: 10px;
+  }
+  .assignment-desc p:last-child {
+    margin-bottom: 0;
+  }
+  .assignment-desc strong {
+    color: var(--maroon);
+    font-weight: 600;
+  }
+
+  /* ── Task Items ── */
+  .task-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    overflow: hidden;
+  }
+  .task-item:hover {
+    border-color: #D4B8C2;
+    box-shadow: var(--shadow-sm);
+  }
+  .task-item.completed {
+    border-color: #C8E6C9;
+    background: #FDFEFD;
+  }
+
+  .task-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .task-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #F5EEF1;
+    color: var(--maroon);
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    margin-top: 1px;
+  }
+  .task-item.completed .task-number {
+    background: var(--success);
+    color: #fff;
+  }
+  .task-item.completed .task-number::after {
+    content: '✓';
+    font-size: 15px;
+  }
+  .task-item.completed .task-number .num-text {
+    display: none;
+  }
+
+  .task-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .task-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+  .task-item.completed .task-title {
+    color: var(--text-muted);
+  }
+
+  .task-expand-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: transform var(--transition);
+    margin-top: 4px;
+  }
+  .task-expand-icon.rotated {
+    transform: rotate(180deg);
+  }
+  .task-expand-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .no-subtask .task-expand-icon {
+    visibility: hidden;
+  }
+
+  /* ── Sub-tasks ── */
+  .subtask-area {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .subtask-area.open {
+    max-height: 600px;
+  }
+  .subtask-list {
+    padding: 0 18px 14px 64px;
+  }
+  .subtask-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+    border-top: 1px solid #F5F0F2;
+  }
+  .subtask-row:first-child {
+    border-top: none;
+  }
+
+  /* ── Checkbox ── */
+  .cb-wrapper {
+    position: relative;
+    flex-shrink: 0;
+  }
+  .cb-wrapper input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  .cb-visual {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #C8BCC1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition);
+    background: #fff;
+  }
+  .cb-visual svg {
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all var(--transition);
+    color: #fff;
+  }
+  input[type="checkbox"]:checked + .cb-visual {
+    background: var(--maroon);
+    border-color: var(--maroon);
+  }
+  input[type="checkbox"]:checked + .cb-visual svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .cb-wrapper:hover .cb-visual {
+    border-color: var(--maroon-light);
+  }
+
+  .subtask-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    line-height: 1.6;
+    flex: 1;
+  }
+  input[type="checkbox"]:checked ~ .subtask-label {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: #CCC;
+  }
+
+  /* ── Simple task (no subtasks) checkbox ── */
+  .simple-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 18px 14px 64px;
+  }
+  .simple-check .cb-visual {
+    width: 18px;
+    height: 18px;
+  }
+  .simple-check label {
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  /* ── Completion Section ── */
+  .completion-section {
+    margin-top: 32px;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    text-align: center;
+    transition: all 0.5s ease;
+  }
+  .completion-section.unlocked {
+    border-color: var(--success);
+    background: var(--success-bg);
+  }
+  .completion-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #F0E6EA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    transition: all var(--transition);
+  }
+  .completion-section.unlocked .completion-icon {
+    background: var(--success);
+  }
+  .completion-icon svg {
+    width: 28px;
+    height: 28px;
+    color: var(--text-muted);
+    transition: color var(--transition);
+  }
+  .completion-section.unlocked .completion-icon svg {
+    color: #fff;
+  }
+  .completion-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+  .completion-desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+    line-height: 1.7;
+  }
+
+  .code-box {
+    display: none;
+    background: #fff;
+    border: 2px dashed var(--success);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 16px;
+  }
+  .completion-section.unlocked .code-box {
+    display: block;
+  }
+  .code-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .code-value {
+    font-family: 'Courier New', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--maroon);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    user-select: all;
+  }
+  .copy-btn {
+    background: var(--maroon);
+    color: #fff;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition);
+    font-family: inherit;
+  }
+  .copy-btn:hover {
+    background: var(--maroon-dark);
+  }
+  .copy-btn.copied {
+    background: var(--success);
+  }
+
+  /* ── Reset ── */
+  .reset-area {
+    text-align: center;
+    margin-top: 20px;
+  }
+  .reset-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: inherit;
+    padding: 4px 8px;
+  }
+  .reset-btn:hover {
+    color: var(--maroon);
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  /* ── Animations ── */
+  @keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+  .pop-anim {
+    animation: pop 0.3s ease;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .header { padding: 28px 16px 22px; }
+    .header h1 { font-size: 20px; }
+    .main { padding: 16px 12px 48px; }
+    .subtask-list { padding-left: 48px; }
+    .simple-check { padding-left: 48px; }
+    .task-header { padding: 14px 14px; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">Arizona State University</div>
+  <h1>PSY 503 课程入门导航（选做）</h1>
+  <p>心理学历史与领域 · 2026 春季 B 小学期</p>
+</div>
+
+<div class="progress-section">
+  <div class="progress-inner">
+    <div class="progress-top">
+      <span class="progress-label">入门准备进度</span>
+      <span class="progress-count" id="progressText">0 / 30</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="intro-note">
+    <strong>同学你好！</strong>欢迎来到 PSY 503 心理学历史与领域。
+  </div>
+
+  <div class="assignment-desc">
+    <p>为了帮助同学们更好地快速了解并上手 Canvas 的操作和使用，这里提供了一份课程入门清单。请同学们在开课之初按照以下步骤逐一完成基本设置、了解课程结构和作业要求等准备工作。每完成一项，点击对应的勾选框进行标记，页面会自动记录你的进度。</p>
+    <p><strong>本作业不计入课程成绩。</strong>同学们在完成所有任务后，页面底部会自动生成一个完成确认码。将确认码复制并提交到本页面下方的提交入口即可，系统会将该作业标记为"已完成"。再次强调，这仅作为完成标记，不影响任何课程分数。</p>
+    <p>清单中的顺序为推荐顺序，同学们也可以根据自己的情况灵活调整完成顺序。</p>
+  </div>
+
+  <!-- Tasks will be rendered by JS -->
+  <div id="taskContainer"></div>
+
+  <!-- Completion -->
+  <div class="completion-section" id="completionSection">
+    <div class="completion-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+    </div>
+    <div class="completion-title" id="completionTitle">尚未完成全部准备</div>
+    <div class="completion-desc" id="completionDesc">完成以上所有任务后，这里将生成你的完成确认码。</div>
+    <div class="code-box">
+      <div class="code-label">你的完成确认码</div>
+      <div class="code-value" id="codeValue"></div>
+      <button class="copy-btn" id="copyBtn" onclick="copyCode()">复制确认码</button>
+      <p style="font-size:12px; color:#666; margin-top:10px;">请将此确认码提交到本作业的提交入口（不计分，仅作为完成标记）</p>
+    </div>
+  </div>
+
+  <div class="reset-area">
+    <button class="reset-btn" onclick="resetAll()">重置所有勾选</button>
+  </div>
+
+  <div class="footer">
+    PSY 503 心理学历史与领域 · 王宝玉 博士 · Arizona State University<br>
+    本页面仅供课程入门引导使用
+  </div>
+</div>
+
+<script>
+// ── Task Data ──
+const TASKS = [
+  {
+    id: 't1',
+    title: '在 Canvas 中从左侧控制栏进入头像（账户）并浏览了设置',
+    subs: [
+      { id: 't1a', text: '绑定常用邮箱' },
+      { id: 't1b', text: '设置时区' },
+      { id: 't1c', text: '界面语言' },
+    ]
+  },
+  {
+    id: 't2',
+    title: '在 Canvas 中从左侧控制栏进入 Notification 设置了提醒偏好',
+    subs: []
+  },
+  {
+    id: 't3',
+    title: '在主页面下载课程大纲',
+    subs: [
+      { id: 't3a', text: '完成课程大纲测验' },
+      { id: 't3b', text: '阅读课程大纲了解课程的主要作业内容' },
+      { id: 't3c', text: '了解每周周常答疑时间' },
+      { id: 't3d', text: '了解作业迟交罚分政策' },
+      { id: 't3e', text: '了解 AI 使用规范' },
+    ]
+  },
+  {
+    id: 't4',
+    title: '在课程首页下载项目手册',
+    subs: []
+  },
+  {
+    id: 't5',
+    title: '查看公告',
+    subs: [
+      { id: 't5a', text: '欢迎大家来到 PSY 503：了解了第一次周常答疑的时间' },
+      { id: 't5b', text: '查看 Canvas 操作公告中的视频并了解查重的基本方法' },
+      { id: 't5c', text: '查看开学初期同学常见问题视频' },
+      { id: 't5d', text: '查看额外学分获得方式' },
+      { id: 't5e', text: '查看讨论与文献阅读笔记作业介绍与示范视频' },
+    ]
+  },
+  {
+    id: 't6',
+    title: '进入到 Module（单元）当中并浏览课程结构和流程',
+    subs: []
+  },
+  {
+    id: 't7',
+    title: '进入到作业考核具体要求页面',
+    subs: [
+      { id: 't7a', text: '了解每周单元讨论作业要求' },
+      { id: 't7b', text: '了解学术文献阅读笔记作业要求' },
+    ]
+  },
+  {
+    id: 't8',
+    title: '进入第零单元',
+    subs: [
+      { id: 't8a', text: '提交学术诚信承诺书' },
+      { id: 't8b', text: '在"讨论：打个招呼吧"中发布讨论帖' },
+    ]
+  },
+  {
+    id: 't9',
+    title: '完成第零单元内容并成功进入第一单元',
+    subs: []
+  },
+  {
+    id: 't10',
+    title: '通过 Canvas 给任课老师发一封信息打招呼或者提问',
+    subs: []
+  },
+];
+
+const STORAGE_KEY = 'psy503_onboarding_v1';
+const CHECK_ICON = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>';
+const CHEVRON = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
+
+// ── State ──
+let state = {};
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state = JSON.parse(raw);
+  } catch(e) { state = {}; }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e) {}
+}
+
+// ── Collect all checkbox IDs ──
+function getAllIds() {
+  const ids = [];
+  TASKS.forEach(t => {
+    if (t.subs.length === 0) {
+      ids.push(t.id);
+    } else {
+      t.subs.forEach(s => ids.push(s.id));
+    }
+  });
+  return ids;
+}
+
+const ALL_IDS = getAllIds();
+const TOTAL = ALL_IDS.length;
+
+function getCheckedCount() {
+  return ALL_IDS.filter(id => state[id]).length;
+}
+
+// ── Render ──
+function render() {
+  const container = document.getElementById('taskContainer');
+  container.innerHTML = '';
+
+  TASKS.forEach((task, idx) => {
+    const hasSubs = task.subs.length > 0;
+    const isSimple = !hasSubs;
+
+    // Determine if task is fully completed
+    let taskComplete = false;
+    if (isSimple) {
+      taskComplete = !!state[task.id];
+    } else {
+      taskComplete = task.subs.every(s => state[s.id]);
+    }
+
+    const el = document.createElement('div');
+    el.className = 'task-item' + (taskComplete ? ' completed' : '') + (isSimple && !hasSubs ? ' no-subtask' : '');
+    if (isSimple) el.classList.add('no-subtask');
+
+    // Check if subtask area should be open
+    const isOpen = state['_open_' + task.id];
+
+    el.innerHTML = `
+      <div class="task-header" data-taskid="${task.id}">
+        <div class="task-number"><span class="num-text">${idx + 1}</span></div>
+        <div class="task-content">
+          <div class="task-title">${task.title}</div>
+        </div>
+        <div class="task-expand-icon ${isOpen ? 'rotated' : ''}">${CHEVRON}</div>
+      </div>
+      ${isSimple ? `
+        <div class="simple-check">
+          <div class="cb-wrapper">
+            <input type="checkbox" id="cb_${task.id}" ${state[task.id] ? 'checked' : ''}>
+            <label class="cb-visual" for="cb_${task.id}">${CHECK_ICON}</label>
+          </div>
+          <label for="cb_${task.id}">已完成</label>
+        </div>
+      ` : `
+        <div class="subtask-area ${isOpen ? 'open' : ''}" id="subs_${task.id}">
+          <div class="subtask-list">
+            ${task.subs.map(s => `
+              <div class="subtask-row">
+                <div class="cb-wrapper">
+                  <input type="checkbox" id="cb_${s.id}" ${state[s.id] ? 'checked' : ''}>
+                  <label class="cb-visual" for="cb_${s.id}">${CHECK_ICON}</label>
+                </div>
+                <label class="subtask-label" for="cb_${s.id}">${s.text}</label>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `}
+    `;
+
+    container.appendChild(el);
+
+    // Event: toggle subtask area
+    if (hasSubs) {
+      el.querySelector('.task-header').addEventListener('click', () => {
+        state['_open_' + task.id] = !state['_open_' + task.id];
+        saveState();
+        const area = el.querySelector('.subtask-area');
+        const icon = el.querySelector('.task-expand-icon');
+        area.classList.toggle('open');
+        icon.classList.toggle('rotated');
+      });
+    }
+
+    // Event: checkboxes
+    el.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const cbId = e.target.id.replace('cb_', '');
+        state[cbId] = e.target.checked;
+        saveState();
+        updateProgress();
+        // Animate number circle
+        const numEl = el.querySelector('.task-number');
+        if (numEl) {
+          numEl.classList.remove('pop-anim');
+          void numEl.offsetWidth;
+          numEl.classList.add('pop-anim');
+        }
+        // Re-check task completion
+        let nowComplete = false;
+        if (isSimple) {
+          nowComplete = !!state[task.id];
+        } else {
+          nowComplete = task.subs.every(s => state[s.id]);
+        }
+        if (nowComplete) {
+          el.classList.add('completed');
+        } else {
+          el.classList.remove('completed');
+        }
+      });
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = getCheckedCount();
+  const pct = Math.round((done / TOTAL) * 100);
+  document.getElementById('progressText').textContent = `${done} / ${TOTAL}`;
+  const bar = document.getElementById('progressBar');
+  bar.style.width = pct + '%';
+
+  const section = document.getElementById('completionSection');
+  if (done === TOTAL) {
+    bar.classList.add('complete');
+    section.classList.add('unlocked');
+    document.getElementById('completionTitle').textContent = '全部完成！';
+    document.getElementById('completionDesc').textContent = '恭喜你完成了所有入门准备。请复制下方确认码并提交到本作业的提交入口（不计分，仅作为完成标记）。';
+    document.getElementById('codeValue').textContent = generateCode();
+  } else {
+    bar.classList.remove('complete');
+    section.classList.remove('unlocked');
+    document.getElementById('completionTitle').textContent = '尚未完成全部准备';
+    document.getElementById('completionDesc').textContent = `还剩 ${TOTAL - done} 项未完成。全部完成后将在此处生成确认码。`;
+  }
+}
+
+function generateCode() {
+  // Generate a deterministic but student-specific code
+  // Uses current semester identifier + a hash-like pattern
+  const base = 'PSY503-26SB-';
+  const now = new Date();
+  const datePart = String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0');
+  const timePart = String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+  // Simple pseudo-random suffix based on localStorage fingerprint
+  let seed = 0;
+  ALL_IDS.forEach((id, i) => { seed += (i + 1) * id.charCodeAt(id.length - 1); });
+  const suffix = ((seed * 17 + parseInt(datePart + timePart)) % 9000 + 1000).toString();
+  return base + datePart + '-' + suffix;
+}
+
+function copyCode() {
+  const code = document.getElementById('codeValue').textContent;
+  if (!code) return;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '已复制';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '复制确认码';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    // Fallback: select text
+    const range = document.createRange();
+    range.selectNode(document.getElementById('codeValue'));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+  });
+}
+
+function resetAll() {
+  if (!confirm('确定要重置所有勾选吗？此操作无法撤销。')) return;
+  state = {};
+  saveState();
+  render();
+}
+
+// ── Init ──
+loadState();
+render();
+</script>
+
+</body>
+</html>
