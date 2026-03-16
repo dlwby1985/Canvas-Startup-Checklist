@@ -37,7 +37,11 @@
     color: var(--text-primary);
     line-height: 1.7;
     min-height: 100vh;
+    overflow-x: hidden;
   }
+  /* Hide scrollbar when embedded in iframe */
+  html::-webkit-scrollbar { display: none; }
+  html { scrollbar-width: none; -ms-overflow-style: none; }
 
   /* ── Header ── */
   .header {
